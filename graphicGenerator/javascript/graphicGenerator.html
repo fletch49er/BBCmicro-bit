@@ -1,0 +1,98 @@
+<script>
+function drawLEDs2() {
+	//create LED rows
+	for (x=0; x<=4; x++) {
+  	//create line break element
+  	var childBr = document.createElement("br");
+    //create LED columns
+  	for (y=0; y<=4; y++) {
+    	//create LED id
+    	var divId = '('+x+','+y+')';
+      //get existing parent div
+      var parentDiv = document.getElementById('leds');
+      //create child div
+      var childDiv = document.createElement("div");
+      //add LED id
+      childDiv.id = 'led'+divId;
+      //add LED class
+      childDiv.className = 'ledz';
+      //add event listener 'click'
+      childDiv.addEventListener('click', ledOnOff.bind(null,event,x,y));
+      //append child LEDs to parent div
+      parentDiv.appendChild(childDiv);
+    }
+    //append br to end of each LED row
+    parentDiv.appendChild(childBr);
+	}
+}
+
+function drawLEDs() {
+	//create LED rows
+	for (x=0; x<=4; x++) {
+  	//create LED columns
+  	for (y=0; y<=4; y++) {
+    	//create LED id
+    	var divId = '('+x+','+y+')';
+      //create LED div
+    	document.write('<div id="led'+divId+'" class="ledz" onclick="ledOnOff'+divId+'"></div>');
+    }
+    document.write('<br />');
+	}
+}
+
+function ledOnOff(event,x,y) {
+	//set brightness to off (0)
+	var brightness = 0;
+  //set current LED
+	var currentLED = document.getElementById('led('+x+','+y+')');
+  var LEDTest = window.getComputedStyle(currentLED, null).getPropertyValue('background-color');
+  //if LED off then switch on (turn red)
+  if (LEDTest == 'rgb(128, 128, 128)') {
+  	currentLED.style.backgroundColor = 'red'; //rgb(255, 0, 0)
+    //set brightness to max (9)
+    brightness = 9;
+  }
+  //if LED not off then switch off (grey)
+  if (LEDTest != 'rgb(128, 128, 128)') {
+  	currentLED.style.backgroundColor = 'grey'; //rgb(51, 51, 51)
+    //set brightness to off (0)
+    brightness = 0;
+  } 
+}
+
+</script>
+<style>
+#graphicGenerator {
+	position: relative;
+}
+#graphicGenerator > img {
+	position: absolute;
+}
+#leds {
+	position: absolute;
+  top: 200px;
+  left: 205px;
+  index-z: 1;
+}
+.ledz {
+	display:inline-block;
+	width: 15px;
+  height: 30px;
+  margin: 18.2px 27.7px;
+  background-color: grey; /*dark-grey*/
+  color:white;
+}
+</style>
+<body>
+<div id="content" class="clearfix">
+<div id="graphicGenerator">
+<h2>BBC micro:bit - Graphic Generator</h2>
+<img src="../images/microbit.png" alt="BBC micro:bit" />
+<div id="leds">
+<script>
+	window.onload = drawLEDs2();
+</script>  
+</div><!-- end #leds -->
+</div><!-- #graphicGenerator -->
+</div><!-- end #content -->
+</body>

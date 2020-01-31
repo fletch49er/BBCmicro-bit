@@ -1,0 +1,20 @@
+#graphicGenerator {
+	position: relative;
+}
+#graphicGenerator > img {
+	position: absolute;
+}
+#leds {
+	position: absolute;
+  top: 200px;
+  left: 205px;
+  index-z: 1;
+}
+.ledz {
+	display:inline-block;
+	width: 15px;
+  height: 30px;
+  margin: 18.2px 27.7px;
+  background-color: grey; /*dark-grey*/
+  color:white;
+}
